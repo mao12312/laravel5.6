@@ -8,11 +8,12 @@ use Validator;
 
 class BooksController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return view('/welcome');
     }
 
-    //本の登録画面
+    //本の一覧画面
     public function dashboard()
     {
         $books = Book::orderBy('created_at', 'asc')->get();
@@ -56,6 +57,7 @@ class BooksController extends Controller
         return redirect('/dashboard');
     }
 
+    //更新機能
     public function update(Request $request)
     {
         //validation
@@ -84,15 +86,17 @@ class BooksController extends Controller
         return redirect('/dashboard');
     }
 
-    public function welcom()
-    {
-        return view('welcome');
-    }
+//    public function welcom()
+//    {
+//        return view('welcome');
+//    }
 
-    public function delete(Book $book){
+    public function delete(Book $book)
+    {
         $book->delete();
         return redirect('/dashboard');
     }
+
 
 
 }

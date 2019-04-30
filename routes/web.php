@@ -28,9 +28,15 @@ Route::post('/books', 'BooksController@store');
 //削除
 Route::delete('/book/{book}', 'BooksController@delete');
 
-//更新機能
+//更新ページ
 //Book booksのid値を取得
 Route::post('/booksedit/{books}', 'BooksController@booksedit');
 
-//更新ページ
+//更新機能
 Route::post('/books/update', 'BooksController@update');
+
+Auth::routes();
+
+//Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/dashboard', 'HomeController@index')->name('dashboard');

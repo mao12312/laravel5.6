@@ -16,8 +16,8 @@ class BooksController extends Controller
     //本の一覧画面
     public function dashboard()
     {
-        $books = Book::orderBy('created_at', 'asc')->get();
-        return view('books', [
+        $books = Book::orderBy('created_at', 'asc')->paginate(3);
+        return view('dashboard', [
             'books' => $books
         ]);
     }

@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Book;
-use Vaitator;
 
 class HomeController extends Controller
 {
@@ -25,18 +23,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $books = Book::orderBy('created_at', 'asc')->get();
-        return view('books', [
-            'books' => $books
-        ]);
-    }
-
-    //本の登録画面
-    public function dashboard()
-    {
-        $books = Book::orderBy('created_at', 'asc')->get();
-        return view('books', [
-            'books' => $books
-        ]);
+        return view('home');
     }
 }

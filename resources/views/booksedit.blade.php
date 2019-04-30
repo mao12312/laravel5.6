@@ -1,6 +1,6 @@
 {{--update用ページ--}}
 
-@extends('layouts.content_base')
+@extends('layouts.app')
 
 @section('title')
     book update

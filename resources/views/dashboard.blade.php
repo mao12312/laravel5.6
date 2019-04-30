@@ -1,4 +1,4 @@
-@extends('layouts.content_base')
+@extends('layouts.app')
 
 @section('title')
     book list

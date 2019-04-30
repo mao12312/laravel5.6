@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.content_base')
 
 @section('title')
     book list
@@ -64,12 +64,12 @@
         @if(count($books)>0)
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    現在の本
+                    投稿
                 </div>
                 <div class="panel-body">
                     <table class="table table-striped task-table">
                         <thead>
-                        <th>本一覧</th>
+                        <th>投稿一覧</th>
                         <th>&nbsp;</th>
                         </thead>
                         <tbody>

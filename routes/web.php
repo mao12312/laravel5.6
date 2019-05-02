@@ -14,7 +14,7 @@ use App\Book;
 use Illuminate\Http\Request;
 
 //ホーム画面
-Route::get('/','Bookscontroller@index');
+Route::get('/','Bookscontroller@dashboard');
 
 //bookdashboard画面
 Route::get('/dashboard','BooksController@dashboard');

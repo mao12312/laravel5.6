@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Book;
+use Illuminate\Support\Facades\Auth;
 use Validator;
 
 class BooksController extends Controller
@@ -22,15 +23,16 @@ class BooksController extends Controller
     //本の一覧画面
     public function dashboard()
     {
-        $books = Book::orderBy('created_at', 'asc')->paginate(3);
+        $books = Book::where('user_id', Auth::user()->id)->orderBy('created_at', 'asc')->paginate(3);
         return view('/dashboard', [
             'books' => $books
         ]);
     }
 
-    public function booksedit(Book $books)
+    public function booksedit($book_id)
     {
         //view(viewの選択, 渡す値)
+        $books =Book::where('user_id',Auth::user()->id)->find($book_id);
         return view('/booksedit', ['book' => $books]);
     }
 
@@ -55,6 +57,7 @@ class BooksController extends Controller
         //Eloquent model
         //make instance
         $books = new Book;
+        $books->user_id = Auth::user()->id;
         $books->item_name = $request->item_name;
         $books->item_number = $request->item_number;
         $books->item_amount = $request->item_amount;
@@ -83,7 +86,7 @@ class BooksController extends Controller
         }
         //データの更新
         //find:主キーを指定して検索
-        $books = Book::find($request->id);
+        $books = Book::where('user_id',Auth::user()->id)->find($request->id);
         $books->item_name = $request->item_name;
         $books->item_number = $request->item_number;
         $books->item_amount = $request->item_amount;
@@ -97,7 +100,6 @@ class BooksController extends Controller
         $book->delete();
         return redirect('/dashboard');
     }
-
 
 
 }

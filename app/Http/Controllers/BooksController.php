@@ -8,6 +8,12 @@ use Validator;
 
 class BooksController extends Controller
 {
+    //このクラスが呼ばれたら最初に処理する（ログインが必要）
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         return view('/welcome');
@@ -17,7 +23,7 @@ class BooksController extends Controller
     public function dashboard()
     {
         $books = Book::orderBy('created_at', 'asc')->paginate(3);
-        return view('dashboard', [
+        return view('/dashboard', [
             'books' => $books
         ]);
     }
@@ -25,7 +31,7 @@ class BooksController extends Controller
     public function booksedit(Book $books)
     {
         //view(viewの選択, 渡す値)
-        return view('booksedit', ['book' => $books]);
+        return view('/booksedit', ['book' => $books]);
     }
 
 //本の登録
@@ -85,11 +91,6 @@ class BooksController extends Controller
         $books->save();
         return redirect('/dashboard');
     }
-
-//    public function welcom()
-//    {
-//        return view('welcome');
-//    }
 
     public function delete(Book $book)
     {

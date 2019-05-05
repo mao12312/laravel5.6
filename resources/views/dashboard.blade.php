@@ -12,7 +12,7 @@
         @include('common.errors')
 
         {{--register book--}}
-        <form action="{{url('books')}}" method="POST" class="form-horizontal">
+        <form enctype="multipart/form-data" action="{{url('books')}}" method="POST" class="form-horizontal">
 
             {{csrf_field()}}
 
@@ -58,6 +58,11 @@
                 </div>
             </div>
 
+            <div class="col-sm-6">
+                <label>image</label>
+                <input type="file" name="item_img">
+            </div>
+
         </form>
 
 
@@ -77,6 +82,7 @@
                             <tr>
                                 <td class="table-text">
                                     <div>{{$book->item_name}}</div>
+                                    <div><img src="upload/{{$book->item_img}}" width="100"></div>
                                 </td>
 
                                 <td class="table-text">

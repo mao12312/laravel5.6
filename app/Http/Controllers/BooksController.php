@@ -24,12 +24,14 @@ class BooksController extends Controller
     public function dashboard()
     {
         $books = Book::where('user_id', Auth::user()->id)->orderBy('created_at', 'asc')->paginate(3);
+//        $books = Book::orderBy('created_at', 'asc')->paginate(3);
         return view('/dashboard', [
             'books' => $books
         ]);
     }
 
     public function booksedit($book_id)
+//    public function booksedit(Book $books)
     {
         //view(viewの選択, 渡す値)
         $books =Book::where('user_id',Auth::user()->id)->find($book_id);
@@ -54,6 +56,16 @@ class BooksController extends Controller
                 ->withErrors($validator);
         }
 
+        $file = $request->file('item_img');
+        //fileが空じゃないかチェック
+        if(!empty($file)){
+            $filename = $file->getClientOriginalName();
+            //ファイル名を取得
+            $move = $file->move('./upload/',$filename);
+        }else{
+            $filename ="";
+        }
+
         //Eloquent model
         //make instance
         $books = new Book;
@@ -61,6 +73,7 @@ class BooksController extends Controller
         $books->item_name = $request->item_name;
         $books->item_number = $request->item_number;
         $books->item_amount = $request->item_amount;
+        $books->item_img = $filename;
         $books->published = $request->published;
         $books->save();
         return redirect('/dashboard');
@@ -87,6 +100,7 @@ class BooksController extends Controller
         //データの更新
         //find:主キーを指定して検索
         $books = Book::where('user_id',Auth::user()->id)->find($request->id);
+//        $books = Book::find($request->id);
         $books->item_name = $request->item_name;
         $books->item_number = $request->item_number;
         $books->item_amount = $request->item_amount;
